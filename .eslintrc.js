@@ -5,6 +5,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
+    'react-app',
+    'react-app/jest',
   ],
   env: {
     browser: true,
