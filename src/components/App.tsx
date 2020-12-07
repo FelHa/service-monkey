@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Auth from './Auth';
-import ServicesList from './ServicesList';
+import Services from './Services';
 import './App.css';
 
 function App(): ReactElement {
@@ -40,7 +40,7 @@ function App(): ReactElement {
             <Auth />
           </Route>
           <Route path="/services">
-            <ServicesList />
+            <Services />
           </Route>
           <Route path="/edit">
             <div>edit</div>

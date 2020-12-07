@@ -42,7 +42,6 @@ export const accessServicesApi = async <T>(
   callback?: (response: T) => void
 ): Promise<T | undefined> => {
   try {
-    console.log(axios.defaults.headers.common);
     const response: AxiosResponse<T> = await axios({
       method: method,
       url: `http://localhost:4000/${path}`,
