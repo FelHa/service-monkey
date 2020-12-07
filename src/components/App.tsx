@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import Auth from './Auth';
 import Services from './Services';
 import './App.css';
+import ServiceDetails from './ServiceDetails';
 
 function App(): ReactElement {
   return (
@@ -38,6 +39,9 @@ function App(): ReactElement {
         <Switch>
           <Route path="/home">
             <Auth />
+          </Route>
+          <Route path="/services/:id">
+            <ServiceDetails />
           </Route>
           <Route path="/services">
             <Services />
