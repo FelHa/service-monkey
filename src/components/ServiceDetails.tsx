@@ -21,7 +21,8 @@ export default function ServiceDetails(): ReactElement {
     <>
       <h2>Details</h2>
       <div>
-        {service.title}, {service.user.name}, {service.date}
+        {service.title}, {service.user.name}, {service.date},
+        {service.description}
       </div>
       <Button variant="primary">Buchen</Button>
     </>

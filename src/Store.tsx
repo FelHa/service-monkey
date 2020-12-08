@@ -2,19 +2,35 @@ import React, { createContext, useReducer, ReactElement } from 'react';
 import { Store } from './types/Store';
 import { Actions } from './types/Actions';
 import ContextProps from './types/ContextProps';
+import jwtDecode from 'jwt-decode';
+import { getJwt } from './shared/authService';
+import { LoggedInUser } from './types/User';
 
 /* Global store */
 
+const token = getJwt();
+const user = token ? (jwtDecode(token) as LoggedInUser) : undefined;
+
 export const initialStore: Store = {
+  user: user,
   services: [],
   subscribed: [],
 };
 
 export function reducer(store = initialStore, action: Actions): Store {
   switch (action.type) {
+    case 'UserLoggedIn': {
+      return { ...store, user: action.user };
+    }
+
+    case 'UserLoggedOut': {
+      return { ...store, user: undefined };
+    }
+
     case 'AddToSubscribed': {
       return { ...store, subscribed: [...store.subscribed, action.service] };
     }
+
     case 'RemoveFromSubscribed': {
       const subscribed = [...store.subscribed];
 

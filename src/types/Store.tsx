@@ -1,8 +1,10 @@
 import Service from './Service';
+import { LoggedInUser } from './User';
 
 /* Global store */
 
 export interface Store {
-    services: Service[];
-    subscribed: Service[];
+  user: LoggedInUser | undefined;
+  services: Service[];
+  subscribed: Service[];
 }

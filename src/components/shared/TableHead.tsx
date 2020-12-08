@@ -1,18 +1,15 @@
 import React, { ReactElement } from 'react';
 
 interface Props {
-  properties: {
-    key: number | symbol | string;
-    label: string;
-  }[];
+  readonly labels: string[];
 }
 
-export default function TableHead({ properties }: Props): ReactElement {
+export default function TableHead(props: Props): ReactElement {
   return (
     <thead>
       <tr>
-        {properties.map((property) => (
-          <th key={String(property.key)}>{property.label}</th>
+        {props.labels.map((label, index) => (
+          <th key={index}>{label}</th>
         ))}
       </tr>
     </thead>

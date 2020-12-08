@@ -3,3 +3,9 @@ export default interface User {
   name: string;
   email: string;
 }
+
+export interface LoggedInUser {
+  _id: string;
+  iat: number;
+  isAdmin: boolean;
+}

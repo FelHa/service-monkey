@@ -5,6 +5,7 @@ import User from './User';
 export default interface Service {
   _id: string;
   user: User;
+  description: string;
   costs: Costs;
   title: string;
   categories: Category[];
