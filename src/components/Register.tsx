@@ -21,7 +21,7 @@ export default function Auth(): ReactElement {
           if (success) history.push('/services');
         }}
       >
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formBasicUsername">
           <Form.Label>Benutzername</Form.Label>
           <Form.Control
             type="text"

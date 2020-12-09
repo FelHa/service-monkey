@@ -1,4 +1,9 @@
-import React, { ChangeEvent, ReactElement, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ReactElement,
+  SyntheticEvent,
+  useState,
+} from 'react';
 import jwtDecode from 'jwt-decode';
 import { Button, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -11,23 +16,23 @@ export default function Login(): ReactElement {
   const [password, setPassword] = useState<string>('');
   const history = useHistory();
   const { dispatch } = useStore();
+
+  const onSubmit = async (e: SyntheticEvent) => {
+    e.preventDefault();
+
+    if (!email || !password) return;
+
+    const token = await login(email, password);
+    if (token) {
+      const user: LoggedInUser = jwtDecode(token);
+      dispatch({ type: 'UserLoggedIn', user });
+      history.push('/services');
+    }
+  };
   return (
     <>
       <h2>Login</h2>
-      <Form
-        onSubmit={async (e) => {
-          e.preventDefault();
-
-          if (!email || !password) return;
-
-          const token = await login(email, password);
-          if (token) {
-            const user: LoggedInUser = jwtDecode(token);
-            dispatch({ type: 'UserLoggedIn', user });
-            history.push('/services');
-          }
-        }}
-      >
+      <Form onSubmit={(e) => onSubmit(e)}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email-Adresse</Form.Label>
           <Form.Control

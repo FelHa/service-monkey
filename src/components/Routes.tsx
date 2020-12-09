@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { useStore } from '../hooks/useStore';
+import AddService from './AddService';
 import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
@@ -9,15 +9,12 @@ import Services from './Services';
 import ProtectedRoute from './shared/ProtectedRoute';
 
 export default function Routes(): ReactElement {
-  const { store } = useStore();
-  console.log(store);
-
   return (
     <Switch>
       <Route path="/services/:id">
         <ServiceDetails />
       </Route>
-      {/* <ProtectedRoute path="/services" component={<Services />} /> */}
+      <ProtectedRoute path="/addService" component={<AddService />} />
       <Route path="/services">
         <Services />
       </Route>

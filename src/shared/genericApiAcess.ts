@@ -31,21 +31,41 @@ export const unSetAuthenticationHeader = (): void => {
  * @template T  Datentyp Response
  * @param path  Pfadangabe zum Endpoint
  * @param method  Requestmethode
+ * @param data  Requestdaten
  * @param [callback]  Optionale Callbackfunktion, die nach dem Request ausgeführt wird
  * @return  Promise vom Typ T
  */
 
-export const accessServicesApi = async <T>(
+export const genericApiAcess = async <T>(
   path: string,
   method: Method,
   data = {},
+  delegateError?: boolean,
   callback?: (response: T) => void
-): Promise<T> => {
-  const response: AxiosResponse<T> = await axios({
-    method: method,
-    url: `http://localhost:4000/${path}`,
-    data,
-  });
-  if (callback) callback(response.data);
-  return response.data;
+): Promise<T | undefined> => {
+  try {
+    const response: AxiosResponse<T> = await axios({
+      method: method,
+      url: `http://localhost:4000/${path}`,
+      data,
+    });
+    if (callback) callback(response.data);
+    return response.data;
+  } catch (ex) {
+    if (delegateError) {
+      throw ex;
+    }
+    switch (ex.status || '') {
+      case 401:
+        toast.error('Nutzer nicht authentifiziert.');
+        break;
+      case 403:
+        toast.error('Nutzer nicht autorisiert.');
+        break;
+      default:
+        toast.error('Fehler beim Zugriff auf die Datenbank.');
+        break;
+    }
+    logger(ex);
+  }
 };

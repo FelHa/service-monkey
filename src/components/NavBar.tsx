@@ -2,14 +2,10 @@ import React, { ReactElement } from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { BiUser } from 'react-icons/bi';
-
-import { useStore } from '../hooks/useStore';
 import AuthenticatedNav from './shared/AuthenticatedNav';
 import AnonymNav from './shared/AnonymNav';
 
 export default function NavBar(): ReactElement {
-  const { store } = useStore();
-
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand as={NavLink} to="/home">
@@ -36,6 +32,10 @@ export default function NavBar(): ReactElement {
             >
               <Nav.Link as={NavLink} to="/user">
                 Mein Konto
+              </Nav.Link>
+              <NavDropdown.Divider />
+              <Nav.Link as={NavLink} to="/user">
+                Gebuchte Dienste
               </Nav.Link>
               <NavDropdown.Divider />
               <Nav.Link as={NavLink} to="/logout">

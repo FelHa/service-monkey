@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Method } from 'axios';
-import { getServices } from '../shared/serviceService';
+import { genericApiAcess } from '../shared/genericApiAcess';
 
 /**
  * Erstellt State vom Typ T und speichert darin einen Aufruf auf die Services-Api.
@@ -18,7 +18,7 @@ export function useServicesApi<T>(
 
   useEffect(() => {
     const effectFunction = async () => {
-      const response = await getServices<T>(path, method);
+      const response = await genericApiAcess<T>(path, method);
       setState(response);
     };
     effectFunction();

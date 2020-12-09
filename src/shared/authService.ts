@@ -1,10 +1,10 @@
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import {
-  accessServicesApi,
+  genericApiAcess,
   setAuthenticationHeader,
   unSetAuthenticationHeader,
-} from './accessServicesApi';
+} from './genericApiAcess';
 
 const tokenKey = 'token';
 
@@ -13,14 +13,23 @@ export const login = async (
   password: string
 ): Promise<string | undefined> => {
   try {
-    const token = await accessServicesApi<string>('api/auth', 'post', {
-      email: email,
-      password: password,
-    });
-    localStorage.setItem(tokenKey, token);
-    setAuthenticationHeader(token);
-    return token;
+    const token = await genericApiAcess<string>(
+      'api/auth',
+      'post',
+      {
+        email: email,
+        password: password,
+      },
+      true
+    );
+    if (token) {
+      localStorage.setItem(tokenKey, token);
+      setAuthenticationHeader(token);
+      return token;
+    }
   } catch (ex) {
+    console.dir(ex);
+
     if (ex.status === 400)
       toast.error('Falsche E-Mail-Adresse oder falsches Passwort');
   }
