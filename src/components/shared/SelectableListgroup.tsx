@@ -1,23 +1,33 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 
-type Item = {
-  _id: string;
-  content: string;
-};
-
-interface Props {
-  readonly items: Item[];
-  readonly selectedItem?: Item;
-  readonly onItemSelect?: (item: Item) => void;
+interface Props<ObjectType> {
+  readonly objects: ObjectType[];
+  readonly content: keyof ObjectType;
+  readonly onSelect: (item: ObjectType) => void;
 }
 
-export default function SelectableListgroup(props: Props): ReactElement {
+export default function SelectableListgroup<ObjectType extends { _id: string }>(
+  props: Props<ObjectType>
+): ReactElement {
+  const [selectedObject, setSelectedObject] = useState('');
+
   return (
     <ListGroup>
-      {props.items.map((item) => (
-        <ListGroup.Item key={item._id}>{item.content}</ListGroup.Item>
-      ))}
+      {props.objects.map((object) => {
+        return (
+          <ListGroup.Item
+            key={object._id}
+            onClick={() => {
+              setSelectedObject(object._id);
+              props.onSelect(object);
+            }}
+            active={object._id === selectedObject}
+          >
+            {object[props.content]}
+          </ListGroup.Item>
+        );
+      })}
     </ListGroup>
   );
 }
@@ -54,3 +64,34 @@ ListGroup.defaultProps = {
 };
 
 export default ListGroup; */
+
+/* =============================================== */
+
+/* interface Props<ObjectType> {
+  objects: ObjectType[];
+  properties: {
+    key: keyof ObjectType;
+    label: string;
+  }[];
+}
+
+export default function GenericTable<ObjectType extends { _id: string }>({
+  objects,
+  properties,
+}: PropsWithChildren<Props<ObjectType>>): ReactElement {
+  return (
+    <Table bordered hover>
+      <TableHead properties={properties} />
+      <tbody>
+        {objects.map((object) => (
+          <GenericTableRow<ObjectType>
+            key={object._id}
+            object={object}
+            properties={properties}
+          />
+        ))}
+      </tbody>
+    </Table>
+  );
+}
+  */

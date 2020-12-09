@@ -14,29 +14,39 @@ export default function Services(): ReactElement {
     'api/categories/',
     'get'
   );
-  const [selectedCategory, setSelectedCategory] = useState<Category[]>();
+  const [selectedCategory, setSelectedCategory] = useState<Category>();
 
   if (!services || !categories) {
     return <LoadingSpinner />;
   }
 
+  const filteredServices =
+    selectedCategory && selectedCategory._id !== 'Alle_Kategorien'
+      ? services.filter((service) =>
+          service.categories.some(
+            (category) => category._id === selectedCategory._id
+          )
+        )
+      : services;
+
   return (
     <Container fluid>
       <Row>
         <Col sm={2}>
-          <SelectableListgroup
-            items={categories.map((category) => ({
-              _id: category._id,
-              content: category.name,
-            }))}
-            onItemSelect={() => setSelectedCategory}
+          <SelectableListgroup<Category>
+            objects={[
+              { _id: 'Alle_Kategorien', name: 'Alle Kategorien' },
+              ...categories,
+            ]}
+            content="name"
+            onSelect={(category) => setSelectedCategory(category)}
           />
         </Col>
         <Col sm={9}>
-          <Table bordered hover>
+          <Table hover>
             <TableHead labels={['Titel', 'Kategorie', 'Anbieter', 'Datum']} />
             <tbody>
-              {services.map((service) => (
+              {filteredServices.map((service) => (
                 <tr key={service._id}>
                   <td>
                     <Link to={`/services/${service._id}`}>{service.title}</Link>
