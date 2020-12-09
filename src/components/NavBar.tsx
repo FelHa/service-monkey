@@ -1,7 +1,11 @@
 import React, { ReactElement } from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { BiUser } from 'react-icons/bi';
+
 import { useStore } from '../hooks/useStore';
+import AuthenticatedNav from './shared/AuthenticatedNav';
+import AnonymNav from './shared/AnonymNav';
 
 export default function NavBar(): ReactElement {
   const { store } = useStore();
@@ -15,18 +19,31 @@ export default function NavBar(): ReactElement {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link as={NavLink} to="/services">
-            Services
+            Dienstleistungen
           </Nav.Link>
-          {store.user ? (
-            <>
+          <AuthenticatedNav>
+            <Nav.Link as={NavLink} to="/addService">
+              Dienstleistung anbieten
+            </Nav.Link>
+          </AuthenticatedNav>
+        </Nav>
+        <Nav>
+          <AuthenticatedNav>
+            <NavDropdown
+              title={<BiUser size={26} />}
+              id="basic-nav-dropdown"
+              alignRight
+            >
               <Nav.Link as={NavLink} to="/user">
-                User
+                Mein Konto
               </Nav.Link>
+              <NavDropdown.Divider />
               <Nav.Link as={NavLink} to="/logout">
                 Logout
               </Nav.Link>
-            </>
-          ) : (
+            </NavDropdown>
+          </AuthenticatedNav>
+          <AnonymNav>
             <>
               <Nav.Link as={NavLink} to="/login">
                 Login
@@ -35,7 +52,7 @@ export default function NavBar(): ReactElement {
                 Registrieren
               </Nav.Link>
             </>
-          )}
+          </AnonymNav>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
