@@ -28,8 +28,6 @@ export const login = async (
       return token;
     }
   } catch (ex) {
-    console.dir(ex);
-
     if (ex.status === 400)
       toast.error('Falsche E-Mail-Adresse oder falsches Passwort');
   }

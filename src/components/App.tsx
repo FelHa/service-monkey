@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import NavBar from './NavBar';
 import { StoreProvider } from '../Store';
-import './App.css';
+import NavBar from './NavBar';
 import Routes from './Routes';
+import './App.css';
 
 function App(): ReactElement {
   return (

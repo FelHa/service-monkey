@@ -26,6 +26,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
     'no-unused-vars': ['warn'],
     'no-debugger': 'warn',
   },
