@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Account from './Account';
 import AddService from './AddService';
 import BookedServices from './BookedServices';
+import PayedServices from './PayedServices';
 import EditService from './EditService';
 import Login from './Login';
 import Logout from './Logout';
@@ -10,6 +11,7 @@ import Register from './Register';
 import ServiceDetails from './ServiceDetails';
 import Services from './Services';
 import ProtectedRoute from './shared/ProtectedRoute';
+import Landingpage from './Landingpage';
 
 export default function Routes(): ReactElement {
   return (
@@ -17,6 +19,7 @@ export default function Routes(): ReactElement {
       <ProtectedRoute path="/addService" component={<AddService />} />
       <ProtectedRoute path="/editService/:id" component={<EditService />} />
       <ProtectedRoute path="/bookedServices" component={<BookedServices />} />
+      <ProtectedRoute path="/payedServices" component={<PayedServices />} />
       <Route path="/services/:id">
         <ServiceDetails />
       </Route>
@@ -35,11 +38,11 @@ export default function Routes(): ReactElement {
       <Route path="/logout">
         <Logout />
       </Route>
-      <Route path="/home">
-        <div>Home</div>
+      <Route path="/landingpage">
+        <Landingpage />
       </Route>
       <Route path="/">
-        <Redirect to="/home" />
+        <Redirect to="/landingpage" />
       </Route>
     </Switch>
   );

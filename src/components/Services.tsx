@@ -73,7 +73,7 @@ export default function Services(): ReactElement {
                     ))}
                   </td>
                   <td>{service.user.name}</td>
-                  <td>{new Date(service.date).toLocaleDateString()}</td>
+                  <td>{service.date.toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>

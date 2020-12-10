@@ -8,7 +8,7 @@ import AnonymNav from './shared/AnonymNav';
 export default function NavBar(): ReactElement {
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand as={NavLink} to="/home">
+      <Navbar.Brand as={NavLink} to="/">
         servicebox
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,7 +35,11 @@ export default function NavBar(): ReactElement {
               </Nav.Link>
               <NavDropdown.Divider />
               <Nav.Link as={NavLink} to="/bookedServices">
-                Gebuchte Dienste
+                Laufende Dienste
+              </Nav.Link>
+              <NavDropdown.Divider />
+              <Nav.Link as={NavLink} to="/payedServices">
+                Abgerechnete Dienste
               </Nav.Link>
               <NavDropdown.Divider />
               <Nav.Link as={NavLink} to="/logout">

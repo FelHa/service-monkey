@@ -3,10 +3,9 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { useStore } from '../hooks/useStore';
 import { useServicesApi } from '../hooks/useServicesApi';
-import { genericApiAcess } from '../shared/genericApiAcess';
 import LoadingSpinner from './shared/LoadingSpinner';
 import Service from '../types/Service';
-import Subscription from '../types/Subscription';
+import { subscribe } from '../shared/subscriptionService';
 
 export default function ServiceDetails(): ReactElement {
   const { id } = useParams<{ id: string }>();
@@ -32,8 +31,8 @@ export default function ServiceDetails(): ReactElement {
       service: service._id,
     };
 
-    await genericApiAcess<Subscription>('api/subscriptions', 'post', data);
-    history.push(`/bookedServices`);
+    await subscribe(data);
+    history.push(`/services`);
   };
 
   return (
@@ -50,7 +49,7 @@ export default function ServiceDetails(): ReactElement {
               <Card.Text style={{ fontWeight: 'bold' }}>
                 Eingestellt am
               </Card.Text>
-              <Card.Text>{service.date}</Card.Text>
+              <Card.Text>{service.date.toLocaleDateString()}</Card.Text>
               <Card.Text style={{ fontWeight: 'bold' }}>Beschreibung</Card.Text>
               <Card.Text>{service.description}</Card.Text>
               <Card.Text style={{ fontWeight: 'bold' }}>Kosten</Card.Text>

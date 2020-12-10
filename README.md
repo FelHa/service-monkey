@@ -1,5 +1,5 @@
 # servicebox
 
-Add services or subscribe to provided services.
+Test-UI für services-rest-api: https://github.com/FelHa/services-rest-api
 
-API beeing used: https://github.com/FelHa/services-rest-api
+Umgesetzt mit React/Typescript.
