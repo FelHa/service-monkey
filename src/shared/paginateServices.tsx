@@ -7,7 +7,7 @@ export default function paginateServices(
   services: Service[],
   selectedCategory: Category | undefined,
   page: Page
-): Service[] {
+): { paginatedServices: Service[]; filteredServices: Service[] } {
   const filteredServices =
     selectedCategory && selectedCategory._id !== 'Alle_Kategorien'
       ? services.filter((service) =>
@@ -24,5 +24,5 @@ export default function paginateServices(
     .take(page.pageSize)
     .value();
 
-  return paginatedServices;
+  return { paginatedServices, filteredServices };
 }

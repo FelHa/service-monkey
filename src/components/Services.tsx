@@ -24,7 +24,11 @@ export default function Services(): ReactElement {
     return <LoadingSpinner />;
   }
 
-  const pagedServices = paginateServices(services, selectedCategory, page);
+  const { paginatedServices, filteredServices } = paginateServices(
+    services,
+    selectedCategory,
+    page
+  );
 
   const onListItemSelect = (category: Category) => {
     setSelectedCategory(category);
@@ -50,9 +54,11 @@ export default function Services(): ReactElement {
         </Col>
         <Col sm={9}>
           <Table hover>
-            <TableHead labels={['Titel', 'Kategorie', 'Anbieter', 'Datum']} />
+            <TableHead
+              labels={['Titel', 'Kategorie', 'Anbieter', 'Eingestellt am']}
+            />
             <tbody>
-              {pagedServices.map((service) => (
+              {paginatedServices.map((service) => (
                 <tr key={service._id}>
                   <td>
                     <Link to={`/services/${service._id}`}>{service.title}</Link>
@@ -73,7 +79,7 @@ export default function Services(): ReactElement {
             </tbody>
           </Table>
           <Pagination
-            pageCount={services.length / page.pageSize}
+            pageCount={filteredServices.length / page.pageSize}
             selectedPage={page.currentPage}
             onSelect={onPageSelect}
           />

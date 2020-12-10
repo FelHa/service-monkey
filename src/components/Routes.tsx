@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AddService from './AddService';
+import EditService from './EditService';
 import Login from './Login';
 import Logout from './Logout';
 import Register from './Register';
@@ -15,11 +16,9 @@ export default function Routes(): ReactElement {
         <ServiceDetails />
       </Route>
       <ProtectedRoute path="/addService" component={<AddService />} />
+      <ProtectedRoute path="/editService/:id" component={<EditService />} />
       <Route path="/services">
         <Services />
-      </Route>
-      <Route path="/edit">
-        <div>edit</div>
       </Route>
       <Route path="/login">
         <Login />

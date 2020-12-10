@@ -14,8 +14,6 @@ export default function Pagination(props: Props): ReactElement | null {
 
   if (pageCount === 1) return null;
 
-  console.log('rendering pagination...');
-
   return (
     <Paginate>
       {pages.map((page) => (

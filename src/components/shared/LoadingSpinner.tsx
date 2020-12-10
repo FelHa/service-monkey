@@ -1,10 +1,14 @@
 import React, { ReactElement } from 'react';
-import { Spinner } from 'react-bootstrap';
+import { Container, Row, Spinner } from 'react-bootstrap';
 
 export default function LoadingSpinner(): ReactElement {
   return (
-    <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
+    <Container fluid>
+      <Row className="justify-content-md-center">
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </Row>
+    </Container>
   );
 }

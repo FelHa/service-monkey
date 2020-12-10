@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 import jwtDecode from 'jwt-decode';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Container, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useStore } from '../hooks/useStore';
 import { login } from '../shared/authService';
@@ -30,38 +30,40 @@ export default function Login(): ReactElement {
     }
   };
   return (
-    <>
-      <h2>Login</h2>
-      <Form onSubmit={(e) => onSubmit(e)}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email-Adresse</Form.Label>
-          <Form.Control
-            type="email"
-            autoFocus={true}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setEmail(e.target.value);
-            }}
-            required
-            value={email}
-          />
-        </Form.Group>
+    <Container fluid>
+      <Row className="justify-content-md-center">
+        <Form onSubmit={(e) => onSubmit(e)}>
+          <h2>Login</h2>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email-Adresse</Form.Label>
+            <Form.Control
+              type="email"
+              autoFocus={true}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setEmail(e.target.value);
+              }}
+              required
+              value={email}
+            />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setPassword(e.target.value);
-            }}
-            required
-            value={password}
-          />
-        </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setPassword(e.target.value);
+              }}
+              required
+              value={password}
+            />
+          </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Einloggen
-        </Button>
-      </Form>
-    </>
+          <Button variant="primary" type="submit">
+            Einloggen
+          </Button>
+        </Form>
+      </Row>
+    </Container>
   );
 }
