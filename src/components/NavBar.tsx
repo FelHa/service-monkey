@@ -30,11 +30,11 @@ export default function NavBar(): ReactElement {
               id="basic-nav-dropdown"
               alignRight
             >
-              <Nav.Link as={NavLink} to="/user">
+              <Nav.Link as={NavLink} to="/account">
                 Mein Konto
               </Nav.Link>
               <NavDropdown.Divider />
-              <Nav.Link as={NavLink} to="/user">
+              <Nav.Link as={NavLink} to="/bookedServices">
                 Gebuchte Dienste
               </Nav.Link>
               <NavDropdown.Divider />

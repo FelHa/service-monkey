@@ -3,8 +3,10 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
 import { useStore } from '../hooks/useStore';
 import { useServicesApi } from '../hooks/useServicesApi';
-import Service from '../types/Service';
+import { genericApiAcess } from '../shared/genericApiAcess';
 import LoadingSpinner from './shared/LoadingSpinner';
+import Service from '../types/Service';
+import Subscription from '../types/Subscription';
 
 export default function ServiceDetails(): ReactElement {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +21,20 @@ export default function ServiceDetails(): ReactElement {
   if (!service) {
     return <LoadingSpinner />;
   }
+
+  const onEdit = () => {
+    history.push(`/editService/${service._id}`);
+  };
+
+  const onBook = async () => {
+    const data = {
+      user: store.user?._id,
+      service: service._id,
+    };
+
+    await genericApiAcess<Subscription>('api/subscriptions', 'post', data);
+    history.push(`/bookedServices`);
+  };
 
   return (
     <Container fluid>
@@ -43,17 +59,14 @@ export default function ServiceDetails(): ReactElement {
                 {service.costs.isMonthly ? '(monatlich)' : '(einmalig)'}
               </Card.Text>
               {store.user && store.user._id === service.user._id && (
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    history.push(`/editService/${service._id}`);
-                  }}
-                >
+                <Button variant="primary" onClick={onEdit}>
                   Bearbeiten
                 </Button>
               )}
               {store.user && store.user._id !== service.user._id && (
-                <Button variant="primary">Buchen</Button>
+                <Button variant="primary" onClick={onBook}>
+                  Buchen
+                </Button>
               )}
             </Card.Body>
           </Card>

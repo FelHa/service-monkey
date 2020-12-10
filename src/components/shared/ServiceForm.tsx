@@ -7,11 +7,11 @@ import React, {
 import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useStore } from '../hooks/useStore';
-import Category, { CategoryCheck } from '../types/Category';
-import Cost from '../types/Cost';
-import { genericApiAcess } from '../shared/genericApiAcess';
-import Service from '../types/Service';
+import { useStore } from '../../hooks/useStore';
+import Category, { CategoryCheck } from '../../types/Category';
+import Cost from '../../types/Cost';
+import { genericApiAcess } from '../../shared/genericApiAcess';
+import Service from '../../types/Service';
 
 interface PropsBasic {
   readonly categories: CategoryCheck[];

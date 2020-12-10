@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { useServicesApi } from '../hooks/useServicesApi';
-import ServiceForm from './ServiceForm';
+import ServiceForm from './shared/ServiceForm';
 import LoadingSpinner from './shared/LoadingSpinner';
 import Category from '../types/Category';
 

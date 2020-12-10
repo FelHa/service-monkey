@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ReactElement, useState } from 'react';
 import { Button, Container, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import { register } from '../shared/userService';
+import { register } from '../shared/authService';
 
 export default function Auth(): ReactElement {
   const [name, setName] = useState<string>('');

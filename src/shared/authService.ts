@@ -55,3 +55,24 @@ export const getCurrentUser = (): string | undefined => {
 export const getJwt = (): string | null => {
   return localStorage.getItem(tokenKey);
 };
+
+export async function register(
+  name: string,
+  email: string,
+  password: string
+): Promise<boolean> {
+  try {
+    const token = await genericApiAcess<string>('api/users', 'post', {
+      name,
+      email,
+      password,
+    });
+    if (token) {
+      localStorage.setItem(tokenKey, token);
+    }
+    return true;
+  } catch (ex) {
+    if (ex.status === 400) toast.error('E-Mail-Adresse bereits vergeben.');
+    return false;
+  }
+}
