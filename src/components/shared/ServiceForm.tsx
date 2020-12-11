@@ -114,11 +114,7 @@ export default function AddService(props: Props): ReactElement {
       return;
     }
 
-    console.log(props);
-
     if (props.serviceId) {
-      console.log('put');
-
       await genericApiAcess<Service>(
         `api/services/${props.serviceId}`,
         'put',
