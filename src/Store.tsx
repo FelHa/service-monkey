@@ -13,8 +13,6 @@ const user = token ? (jwtDecode(token) as LoggedInUser) : undefined;
 
 export const initialStore: Store = {
   user: user,
-  services: [],
-  subscribed: [],
 };
 
 export function reducer(store = initialStore, action: Actions): Store {
@@ -25,25 +23,6 @@ export function reducer(store = initialStore, action: Actions): Store {
 
     case 'UserLoggedOut': {
       return { ...store, user: undefined };
-    }
-
-    case 'AddToSubscribed': {
-      return { ...store, subscribed: [...store.subscribed, action.service] };
-    }
-
-    case 'RemoveFromSubscribed': {
-      const subscribed = [...store.subscribed];
-
-      const index = subscribed
-        .map((service) => service._id)
-        .indexOf(action.service._id);
-      if (index >= 0) {
-        subscribed.splice(index, 1);
-      }
-      return {
-        ...store,
-        subscribed,
-      };
     }
   }
 }
