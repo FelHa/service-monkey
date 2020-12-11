@@ -114,7 +114,11 @@ export default function AddService(props: Props): ReactElement {
       return;
     }
 
-    if (!props.isEdit) {
+    console.log(props);
+
+    if (props.serviceId) {
+      console.log('put');
+
       await genericApiAcess<Service>(
         `api/services/${props.serviceId}`,
         'put',
@@ -127,6 +131,7 @@ export default function AddService(props: Props): ReactElement {
         'post',
         data
       );
+
       history.push(`/services/${newService?._id}`);
     }
   };
