@@ -14,3 +14,7 @@ Kleine Test-App, mit React/Typescript umgesetzt.
   - globaler Provider mittels createContext- und useContext-Hook
   - Filterung und Paginierung von Serverdaten
   - Authentifizierung und Protected Routes mittels JW-Tokens
+
+## Deployed:
+
+https://servicebox-app.herokuapp.com/landingpage
