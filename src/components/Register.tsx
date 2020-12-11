@@ -1,13 +1,18 @@
 import React, { ChangeEvent, ReactElement, useState } from 'react';
-import { Button, Container, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { useStore } from '../hooks/useStore';
 import { register } from '../shared/authService';
+import { Button, Container, Form, Row } from 'react-bootstrap';
+import { LoggedInUser } from '../types/User';
 
 export default function Auth(): ReactElement {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { dispatch } = useStore();
   const history = useHistory();
+
   return (
     <Container fluid>
       <Row className="justify-content-md-center">
@@ -17,8 +22,14 @@ export default function Auth(): ReactElement {
 
             if (!email || !password || !name) return;
 
-            const success = await register(name, email, password);
-            if (success) history.push('/services');
+            const token = await register(name, email, password);
+            if (token) {
+              const user: LoggedInUser = jwtDecode(token);
+              console.log(user);
+
+              dispatch({ type: 'UserLoggedIn', user });
+              history.push('/services');
+            }
           }}
         >
           <h2>Register</h2>

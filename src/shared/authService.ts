@@ -33,6 +33,32 @@ export const login = async (
   }
 };
 
+export async function register(
+  name: string,
+  email: string,
+  password: string
+): Promise<string | undefined> {
+  try {
+    const user = await genericApiAcess<{ token: string }>(
+      'api/users',
+      'post',
+      {
+        name,
+        email,
+        password,
+      },
+      true
+    );
+    if (user) {
+      localStorage.setItem(tokenKey, user.token);
+      setAuthenticationHeader(user.token);
+      return user.token;
+    }
+  } catch (ex) {
+    if (ex.status === 400) toast.error('E-Mail-Adresse bereits vergeben.');
+  }
+}
+
 export const loginWithJwt = (jwt: string): void => {
   localStorage.setItem(tokenKey, jwt);
 };
@@ -55,24 +81,3 @@ export const getCurrentUser = (): string | undefined => {
 export const getJwt = (): string | null => {
   return localStorage.getItem(tokenKey);
 };
-
-export async function register(
-  name: string,
-  email: string,
-  password: string
-): Promise<boolean> {
-  try {
-    const token = await genericApiAcess<string>('api/users', 'post', {
-      name,
-      email,
-      password,
-    });
-    if (token) {
-      localStorage.setItem(tokenKey, token);
-    }
-    return true;
-  } catch (ex) {
-    if (ex.status === 400) toast.error('E-Mail-Adresse bereits vergeben.');
-    return false;
-  }
-}
